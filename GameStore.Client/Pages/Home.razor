@@ -1,0 +1,41 @@
+﻿@page "/"
+@using Models
+@using Data
+<PageTitle>Game Catalog</PageTitle>
+
+<h1>My Game Catalog</h1>
+@if (games is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-hover table-bordered table-striped">
+        <thead class="table-dark">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Release</th>
+        </thead>
+        <tbody>
+            @foreach (var i in games)
+            {
+                <tr>
+                    <td>@i.ID</td>
+                    <td>@i.Name</td>
+                    <td>@i.Genre</td>
+                    <td>@i.Price</td>
+                    <td>@i.ReleaseDate.ToString("MM/dd/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    private Game[]? games;
+    protected override void OnInitialized()
+    {
+        games = GameClient.getGames();
+    }
+}
